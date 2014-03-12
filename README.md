@@ -1,2 +1,2 @@
-shiny-knitr-mysql
+A simple demo for shiny+knitr+mysql
 =================

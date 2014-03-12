@@ -1,0 +1,30 @@
+\documentclass[12pt]{article}
+\usepackage{url}
+\linespread{1.5}
+\begin{document}
+
+\title{Test for Shiny+knitr+MySQK}
+\author{\Sexpr{input$name}}
+
+\maketitle
+
+This is a simple test for Shiny+knitr+MySQL, you can find the simple source code from \url{https://github.com/thirdwing/shiny-knitr-mysql}.
+
+<<eval=TRUE,echo=FALSE>>=
+mychannel <- dbConnect(MySQL(), user="genome", host="genome-mysql.cse.ucsc.edu")
+query <- function(...) dbGetQuery(mychannel, ...)
+cmd <- paste("SELECT name, chrom, txStart, txEnd FROM mm9.knownGene WHERE chrom='chr", input$chrom, "' LIMIT 10;",sep="")
+res <- query(cmd)
+@
+
+I use the public MySQL server for the UCSC genome browser, and I list the first 10 genes on Chromosome \Sexpr{input$chrom}, and the first gene is \Sexpr{res[1,1]}.
+
+
+
+<<eval=TRUE,echo=FALSE>>=
+res
+@
+
+
+
+\end{document}
